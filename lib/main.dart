@@ -1,6 +1,6 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'dart:async';
+import 'nextpage.dart';
 
 void main() {
   runApp(const MyApp());
@@ -86,6 +86,17 @@ class _MyHomePageState extends State<MyHomePage> {
         setState(() {
           _second++;
         });
+
+        if (_second == 10){
+          _timer?.cancel();
+          _isRunning = false;
+
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => NextPage()),
+          );
+        }
+
       });
     }
     // 「_isRunning」を切り替える。setStateで囲むことにより「State」に入ってる変数の変更が通知され、リビルド（更新）される。
