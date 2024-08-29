@@ -70,7 +70,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-            )
+            ),
+            ElevatedButton(
+              onPressed: (){
+                resetTimer();
+              },
+
+              // 「_isRunning」がtrueの場合「ストップ」、falseの場合「スタート」
+              child: Text('リセット',
+                style : TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
           ],
         ),
       ),
@@ -88,7 +101,7 @@ class _MyHomePageState extends State<MyHomePage> {
         });
 
         if (_second == 10){
-          _timer?.cancel();
+          resetTimer();
           _isRunning = false;
 
           Navigator.push(
@@ -105,4 +118,12 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void resetTimer() {
+    _timer?.cancel();
+    setState(() {
+      _second = 0;
+      _isRunning = false;
+    });
+
+  }
 }
