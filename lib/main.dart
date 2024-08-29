@@ -35,18 +35,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _second = 0;
   // ?を入れると変数のデフォルトにnullが入る
   Timer? _timer;
+  bool _isRunning = false;
 
   @override
   // initState: この画面を開いた時に最初に呼ばれる関数
   void initState() {
     super.initState();
-
-    // 1秒ごとにカウントアップ
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        _second++;
-      });
-    });
   }
 
   @override
@@ -66,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             ElevatedButton(
               onPressed: (){
-                stop();
+                toggleTimer();
             },
               child: const Text('ストップ'),
             )
@@ -76,9 +70,21 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
-  void stop(){
-    // 「?」をつけると「nullかも？」って意味。一方「!」をつけると「nullではない」と決めつける。
-    _timer?.cancel();
+  void toggleTimer(){
+    if (_isRunning) {
+      // 「?」をつけると「nullかも？」って意味。一方「!」をつけると「nullではない」と決めつける。
+      _timer?.cancel();
+    } else {
+      _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+        setState(() {
+          _second++;
+        });
+      });
+    }
+    // 「_isRunning」を切り替える。setStateで囲むことにより「State」に入ってる変数の変更が通知され、リビルド（更新）される。
+    setState(() {
+      _isRunning = !_isRunning;
+    });
   }
 
 }
