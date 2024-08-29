@@ -62,7 +62,9 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: (){
                 toggleTimer();
             },
-              child: const Text('ストップ'),
+
+              // 「_isRunning」がtrueの場合「ストップ」、falseの場合「スタート」
+              child: Text(_isRunning ? 'ストップ' : 'スタート'),
             )
           ],
         ),
