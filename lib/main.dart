@@ -64,7 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
             },
 
               // 「_isRunning」がtrueの場合「ストップ」、falseの場合「スタート」
-              child: Text(_isRunning ? 'ストップ' : 'スタート'),
+              child: Text(_isRunning ? 'ストップ' : 'スタート',
+                style : TextStyle(
+                  color: _isRunning ? Colors.red : Colors.green,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             )
           ],
         ),
