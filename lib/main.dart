@@ -33,6 +33,8 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _second = 0;
+  // ?を入れると変数のデフォルトにnullが入る
+  Timer? _timer;
 
   @override
   // initState: この画面を開いた時に最初に呼ばれる関数
@@ -40,7 +42,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
 
     // 1秒ごとにカウントアップ
-    Timer.periodic(const Duration(seconds: 1), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {
         _second++;
       });
@@ -55,11 +57,28 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: Center(
-        child: Text(
-          '$_second',
-          style: TextStyle(fontSize: 64),
+        child: Column(
+         mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              '$_second',
+              style: TextStyle(fontSize: 100),
+            ),
+            ElevatedButton(
+              onPressed: (){
+                stop();
+            },
+              child: const Text('ストップ'),
+            )
+          ],
         ),
       ),
     );
   }
+
+  void stop(){
+    // 「?」をつけると「nullかも？」って意味。一方「!」をつけると「nullではない」と決めつける。
+    _timer?.cancel();
+  }
+
 }
